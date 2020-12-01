@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,11 +18,11 @@ class ProductListFragment : Fragment() {
 
     var recyclerView: RecyclerView? = null
     var container: ViewGroup? = null
-
     @Inject
     lateinit var productsRepository: ProductsRepository
 
     private val viewModel: ProductListVM by lazy { getViewModel { ProductListVM(productsRepository) } }
+    private lateinit var adapter: ProductsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         MeliChallengeApplication.appComponent.inject(this)
@@ -31,16 +32,22 @@ class ProductListFragment : Fragment() {
         recyclerView?.layoutManager = layoutManager
         this.container = view.findViewById(R.id.container)
 
+        adapter = ProductsAdapter { product -> onProductClick(product) }
+        recyclerView?.adapter = adapter
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val emptyListTextView = view.findViewById<TextView>(R.id.empty_list_text_view)
         viewModel.productsLiveData.observe(viewLifecycleOwner, Observer {
             if (it.isNullOrEmpty()) {
-                Log.e("ProductListFragment", "Null or empty list")
+                adapter.submitList(mutableListOf())
+                emptyListTextView.visibility = View.VISIBLE
+                Log.e("ProductListFragment", "Empty list")
             } else {
-                // adapter.setList()
+                adapter.submitList(it)
+                emptyListTextView.visibility = View.GONE
                 Log.d("ProductListFragment", it.toString())
             }
         })
@@ -49,6 +56,10 @@ class ProductListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    private fun onProductClick(product: Product) {
+        Log.d("ProductListFragment", "Producto seleccionado: $product")
     }
 
     /**
@@ -65,16 +76,13 @@ class ProductListFragment : Fragment() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     // We need to call the viewmodel and make the search
                     query?.let {
-                        viewModel.getProducts(it)
+                        viewModel.requestProducts(it)
                         Log.d("ProductListFragment", "Se presiono ok con el texto: $it")
                     }
                     return true
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    Log.d("ProductListFragment", "El texto cambio a: $query")
-                    return true
-                }
+                override fun onQueryTextChange(newText: String?) = true
 
             })
         }

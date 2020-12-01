@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jphernandez.melichallenge.repositories.ProductsRepository
 
-class ProductListVM(val productsRepository: ProductsRepository? = null): ViewModel() {
+class ProductListVM(private val productsRepository: ProductsRepository? = null): ViewModel() {
 
     val productsLiveData: MutableLiveData<List<Product>> = MutableLiveData()
 
-    fun getProducts(searchQuery: String) {
+    fun requestProducts(searchQuery: String) {
         productsRepository?.getProducts(searchQuery)?.subscribe {
             productsLiveData.postValue(it)
+            Log.d("ProductListVM", "Lista de productos: $it")
         }
-        Log.d("ProductListVM", "Se presiono ok con el texto: $searchQuery")
     }
 
 }
