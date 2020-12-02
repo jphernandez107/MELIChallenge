@@ -14,20 +14,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jphernandez.melichallenge.*
 import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
 import com.jphernandez.melichallenge.repositories.ProductsRepository
+import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
 import javax.inject.Inject
 
 class ProductListFragment : Fragment() {
 
-    var recyclerView: RecyclerView? = null
     @Inject
     lateinit var productsRepository: ProductsRepository
-
     private val viewModel: ProductListVM by lazy { getViewModel {
         ProductListVM(
             productsRepository
         )
     } }
+
     private lateinit var adapter: ProductsAdapter
+    var recyclerView: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         MeliChallengeApplication.appComponent.inject(this)
@@ -57,6 +58,7 @@ class ProductListFragment : Fragment() {
                 emptyListTextView.visibility = View.GONE
                 Log.d("ProductListFragment", it.toString())
             }
+            setLoading(false)
         })
     }
 
@@ -78,6 +80,10 @@ class ProductListFragment : Fragment() {
         Log.d("ProductListFragment", "Producto seleccionado: $product")
     }
 
+    fun setLoading(loading: Boolean) {
+        activity?.findViewById<CircleProgressBar>(R.id.loading)?.visibility = if(loading) View.VISIBLE else View.GONE
+    }
+
     /**
      * Seteamos el boton de search
      */
@@ -93,6 +99,7 @@ class ProductListFragment : Fragment() {
                     // We need to call the viewmodel and make the search
                     query?.let {
                         viewModel.requestProducts(it)
+                        setLoading(true)
                         Log.d("ProductListFragment", "Se presiono ok con el texto: $it")
                     }
                     return true

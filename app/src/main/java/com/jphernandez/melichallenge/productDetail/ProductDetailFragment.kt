@@ -17,6 +17,7 @@ import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.helpers.displayThumbnail
 import com.jphernandez.melichallenge.productList.getViewModel
 import com.jphernandez.melichallenge.repositories.ProductsRepository
+import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
 import javax.inject.Inject
 
 class ProductDetailFragment: Fragment() {
@@ -45,7 +46,6 @@ class ProductDetailFragment: Fragment() {
         adapter = ProductDetailsAdapter()
         recyclerView?.adapter = adapter
 
-
         return view
     }
 
@@ -60,6 +60,7 @@ class ProductDetailFragment: Fragment() {
         })
 
         productId?.let {
+            setLoading(true)
             viewModel.getProductById(it)
         }
     }
@@ -79,6 +80,11 @@ class ProductDetailFragment: Fragment() {
         displayThumbnail(imageUrl, productImage)
 
         adapter.submitList(product.attributes)
+        setLoading(false)
+    }
+
+    fun setLoading(loading: Boolean) {
+        activity?.findViewById<CircleProgressBar>(R.id.loading)?.visibility = if(loading) View.VISIBLE else View.GONE
     }
 
     companion object {
