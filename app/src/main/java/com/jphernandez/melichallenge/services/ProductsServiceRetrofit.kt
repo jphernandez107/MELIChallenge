@@ -1,5 +1,7 @@
 package com.jphernandez.melichallenge.services
 
+import com.jphernandez.melichallenge.Dto.ProductDto
+import com.jphernandez.melichallenge.Dto.ProductResultDto
 import com.jphernandez.melichallenge.Dto.SearchResultDto
 import io.reactivex.Observable
 import retrofit2.Retrofit
@@ -13,6 +15,9 @@ interface ProductsServiceRetrofit {
 //    fun getProductsList(@Path("query") querySearch: String, @Path("offset") offsetPage: Int = 0): Observable<SearchResultDto>
     @GET("/sites/MLA/search?")
     fun getProductsList(@Query("q") querySearch: String): Observable<SearchResultDto>
+
+    @GET("/items?")
+    fun getProductById(@Query("ids") id: String): Observable<List<ProductResultDto>>
 
 
     companion object {

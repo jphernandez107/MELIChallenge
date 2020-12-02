@@ -1,4 +1,4 @@
-package com.jphernandez.melichallenge
+package com.jphernandez.melichallenge.productList
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +10,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.jphernandez.melichallenge.Product
+import com.jphernandez.melichallenge.R
+import com.jphernandez.melichallenge.helpers.displayThumbnail
 
-class ProductsAdapter (val onProductClick: (Product) -> Unit): ListAdapter<Product,ProductsAdapter.ViewHolder>(ProductDiffCallback) {
+class ProductsAdapter (val onProductClick: (Product) -> Unit): ListAdapter<Product, ProductsAdapter.ViewHolder>(
+    ProductDiffCallback
+) {
 
     class ViewHolder(view: View, val onProductClick: (Product) -> Unit): RecyclerView.ViewHolder(view) {
         val productNameTextView: TextView = view.findViewById(R.id.productName)
@@ -30,7 +35,10 @@ class ProductsAdapter (val onProductClick: (Product) -> Unit): ListAdapter<Produ
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_list_item, parent, false)
-        return ViewHolder(view, onProductClick)
+        return ViewHolder(
+            view,
+            onProductClick
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,14 +49,6 @@ class ProductsAdapter (val onProductClick: (Product) -> Unit): ListAdapter<Produ
         displayThumbnail(getItem(position).thumbnail, holder.productImageTextView)
     }
 
-    private fun displayThumbnail(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context)
-            .load(url)
-            .centerCrop()
-            .placeholder(R.drawable.thumbnail_placeholder)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(imageView)
-    }
 }
 
 object ProductDiffCallback: DiffUtil.ItemCallback<Product>() {

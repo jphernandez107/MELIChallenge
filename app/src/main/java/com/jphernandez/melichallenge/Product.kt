@@ -11,9 +11,13 @@ data class Product (
     val buyingMode: String?,
     val condition: String?,
     val permalink: String?,
+    val thumbnailId: String?,
     val thumbnail: String?,
     val categoryId: String?,
     val officialStoreId: Long?,
     val domainId: String?,
-    val tags : List<String>?
+    val tags : List<String>?,
+    val pictures : List<ProductPicture>? = null,
+    val warranty: String? = null,
+    val isFreeSheeping: Boolean = false
 )

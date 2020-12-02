@@ -1,5 +1,7 @@
 package com.jphernandez.melichallenge
 
+import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
+import com.jphernandez.melichallenge.productList.ProductListFragment
 import com.jphernandez.melichallenge.repositories.ProductsRepository
 import com.jphernandez.melichallenge.repositories.ProductsRepositoryImpl
 import com.jphernandez.melichallenge.services.ProductsService
@@ -49,4 +51,5 @@ open class Providers {
 @Component(modules = [Providers::class])
 interface AppComponent {
     fun inject(productsListFragment: ProductListFragment)
+    fun inject(productDetailFragment: ProductDetailFragment)
 }

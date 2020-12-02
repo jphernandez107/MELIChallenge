@@ -1,4 +1,4 @@
-package com.jphernandez.melichallenge
+package com.jphernandez.melichallenge.productList
 
 import android.app.SearchManager
 import android.content.Context
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jphernandez.melichallenge.*
+import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
 import com.jphernandez.melichallenge.repositories.ProductsRepository
 import javax.inject.Inject
 
@@ -21,7 +23,11 @@ class ProductListFragment : Fragment() {
     @Inject
     lateinit var productsRepository: ProductsRepository
 
-    private val viewModel: ProductListVM by lazy { getViewModel { ProductListVM(productsRepository) } }
+    private val viewModel: ProductListVM by lazy { getViewModel {
+        ProductListVM(
+            productsRepository
+        )
+    } }
     private lateinit var adapter: ProductsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,7 +38,10 @@ class ProductListFragment : Fragment() {
         recyclerView?.layoutManager = layoutManager
         this.container = view.findViewById(R.id.container)
 
-        adapter = ProductsAdapter { product -> onProductClick(product) }
+        adapter =
+            ProductsAdapter { product ->
+                onProductClick(product)
+            }
         recyclerView?.adapter = adapter
         return view
     }
@@ -59,6 +68,15 @@ class ProductListFragment : Fragment() {
     }
 
     private fun onProductClick(product: Product) {
+        val args = product.id?.let { ProductDetailFragment.getBundle(it) }
+        val newFragment = ProductDetailFragment()
+        newFragment.arguments = args
+
+        val transaction = activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.fragment_container_view, newFragment)
+            addToBackStack(null)
+        }
+        transaction?.commit()
         Log.d("ProductListFragment", "Producto seleccionado: $product")
     }
 
