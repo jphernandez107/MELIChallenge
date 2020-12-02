@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jphernandez.melichallenge.*
+import com.jphernandez.melichallenge.application.MeliChallengeApplication
+import com.jphernandez.melichallenge.data.Product
 import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
 import com.jphernandez.melichallenge.repositories.ProductsRepository
 import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar

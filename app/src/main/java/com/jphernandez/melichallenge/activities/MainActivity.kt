@@ -1,11 +1,11 @@
-package com.jphernandez.melichallenge
+package com.jphernandez.melichallenge.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.productList.ProductListFragment
 import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
 

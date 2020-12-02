@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jphernandez.melichallenge.MeliChallengeApplication
-import com.jphernandez.melichallenge.Product
+import com.jphernandez.melichallenge.application.MeliChallengeApplication
+import com.jphernandez.melichallenge.data.Product
 import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.helpers.displayThumbnail
 import com.jphernandez.melichallenge.productList.getViewModel
@@ -70,6 +70,7 @@ class ProductDetailFragment: Fragment() {
         productTitle = view.findViewById(R.id.product_name)
         productPrice = view.findViewById(R.id.product_price)
         productShip = view.findViewById(R.id.product_ship)
+        view.findViewById<TextView>(R.id.description_title).visibility = View.VISIBLE
 
         val price = "$ ${product.price}"
         productTitle.text = product.title

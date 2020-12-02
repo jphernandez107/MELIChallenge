@@ -1,4 +1,4 @@
-package com.jphernandez.melichallenge
+package com.jphernandez.melichallenge.application
 
 import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
 import com.jphernandez.melichallenge.productList.ProductListFragment

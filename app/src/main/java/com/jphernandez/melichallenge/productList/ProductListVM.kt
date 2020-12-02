@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.jphernandez.melichallenge.Product
+import com.jphernandez.melichallenge.data.Product
 import com.jphernandez.melichallenge.repositories.ProductsRepository
 
 class ProductListVM(private val productsRepository: ProductsRepository): ViewModel() {

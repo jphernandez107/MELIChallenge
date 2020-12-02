@@ -1,14 +1,12 @@
 package com.jphernandez.melichallenge.repositories
 
 import com.jphernandez.melichallenge.Dto.*
-import com.jphernandez.melichallenge.Product
-import com.jphernandez.melichallenge.ProductAttribute
-import com.jphernandez.melichallenge.ProductPicture
+import com.jphernandez.melichallenge.data.Product
+import com.jphernandez.melichallenge.data.ProductAttribute
+import com.jphernandez.melichallenge.data.ProductPicture
 import com.jphernandez.melichallenge.services.ProductsService
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
-import javax.inject.Inject
 
 class ProductsRepositoryImpl(private val productsService: ProductsService): ProductsRepository {
 

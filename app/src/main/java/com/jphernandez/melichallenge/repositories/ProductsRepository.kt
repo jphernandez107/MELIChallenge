@@ -1,6 +1,6 @@
 package com.jphernandez.melichallenge.repositories
 
-import com.jphernandez.melichallenge.Product
+import com.jphernandez.melichallenge.data.Product
 import io.reactivex.Observable
 
 interface ProductsRepository {

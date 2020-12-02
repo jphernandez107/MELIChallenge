@@ -1,4 +1,4 @@
-package com.jphernandez.melichallenge
+package com.jphernandez.melichallenge.data
 
 data class ProductAttribute(
     val id: String?,
