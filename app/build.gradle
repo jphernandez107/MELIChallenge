@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
-    //progress bar
+    //progress bar --> https://github.com/lsjwzh/MaterialLoadingProgressBar
     implementation 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
 }
 

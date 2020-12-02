@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         dm:mlpb_enable_circle_background="true"
         dm:mlpb_progress_color="@color/meli_yellow"
+        dm:mlpb_background_color="@color/gray"
         dm:mlpb_progress_text_visibility= "invisible"
         android:visibility="gone"/>
 
