@@ -19,5 +19,6 @@ data class Product (
     val tags : List<String>?,
     val pictures : List<ProductPicture>? = null,
     val warranty: String? = null,
-    val isFreeSheeping: Boolean = false
+    val isFreeSheeping: Boolean = false,
+    val attributes: List<ProductAttribute>? = null
 )

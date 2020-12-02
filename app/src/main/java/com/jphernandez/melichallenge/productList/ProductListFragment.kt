@@ -19,7 +19,6 @@ import javax.inject.Inject
 class ProductListFragment : Fragment() {
 
     var recyclerView: RecyclerView? = null
-    var container: ViewGroup? = null
     @Inject
     lateinit var productsRepository: ProductsRepository
 
@@ -36,7 +35,6 @@ class ProductListFragment : Fragment() {
         val layoutManager = GridLayoutManager(activity, 1)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = layoutManager
-        this.container = view.findViewById(R.id.container)
 
         adapter =
             ProductsAdapter { product ->

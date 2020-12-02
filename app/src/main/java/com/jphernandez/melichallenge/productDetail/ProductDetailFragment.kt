@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jphernandez.melichallenge.MeliChallengeApplication
 import com.jphernandez.melichallenge.Product
 import com.jphernandez.melichallenge.R
@@ -22,6 +24,8 @@ class ProductDetailFragment: Fragment() {
     @Inject
     lateinit var productsRepository: ProductsRepository
 
+    var recyclerView: RecyclerView? = null
+    private lateinit var adapter: ProductDetailsAdapter
     private val viewModel: ProductDetailVM by lazy { getViewModel { ProductDetailVM(productsRepository) } }
 
     private var productId: String? = null
@@ -30,11 +34,19 @@ class ProductDetailFragment: Fragment() {
     private lateinit var productTitle: TextView
     private lateinit var productPrice: TextView
     private lateinit var productShip: TextView
-    private lateinit var productDescription: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         MeliChallengeApplication.appComponent.inject(this)
-        return inflater.inflate(R.layout.product_detail_fragment, container, false)
+        val view = inflater.inflate(R.layout.product_detail_fragment, container, false)
+        val layoutManager = GridLayoutManager(activity, 1)
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView?.layoutManager = layoutManager
+
+        adapter = ProductDetailsAdapter()
+        recyclerView?.adapter = adapter
+
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,15 +69,16 @@ class ProductDetailFragment: Fragment() {
         productTitle = view.findViewById(R.id.product_name)
         productPrice = view.findViewById(R.id.product_price)
         productShip = view.findViewById(R.id.product_ship)
-        productDescription = view.findViewById(R.id.product_description)
 
-       val price = "$ ${product.price}"
+        val price = "$ ${product.price}"
         productTitle.text = product.title
         productPrice.text = price
         productShip.visibility = if(product.isFreeSheeping) View.VISIBLE else View.GONE
         var imageUrl: String? = null
         product.pictures?.forEach { if(it.id == product.thumbnailId) imageUrl = it.getURL() }
         displayThumbnail(imageUrl, productImage)
+
+        adapter.submitList(product.attributes)
     }
 
     companion object {

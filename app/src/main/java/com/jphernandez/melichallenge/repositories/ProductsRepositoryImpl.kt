@@ -1,10 +1,8 @@
 package com.jphernandez.melichallenge.repositories
 
-import com.jphernandez.melichallenge.Dto.ProductDto
-import com.jphernandez.melichallenge.Dto.ProductPictureDto
-import com.jphernandez.melichallenge.Dto.ProductResultDto
-import com.jphernandez.melichallenge.Dto.SearchResultDto
+import com.jphernandez.melichallenge.Dto.*
 import com.jphernandez.melichallenge.Product
+import com.jphernandez.melichallenge.ProductAttribute
 import com.jphernandez.melichallenge.ProductPicture
 import com.jphernandez.melichallenge.services.ProductsService
 import io.reactivex.Observable
@@ -58,7 +56,8 @@ class ProductsRepositoryImpl(private val productsService: ProductsService): Prod
             prod.tags,
             convertProductPictures(prod.pictures),
             prod.warranty,
-            prod.shipping?.free_shipping ?: false
+            prod.shipping?.free_shipping ?: false,
+            convertProductAttributes(prod.attributes)
         )
 
     private fun convertProductPictures(picturesDto: List<ProductPictureDto>?) =
@@ -72,5 +71,15 @@ class ProductsRepositoryImpl(private val productsService: ProductsService): Prod
             pictureDto.size,
             pictureDto.maxSize,
             pictureDto.quality
+        )
+
+    private fun convertProductAttributes(attributesDto: List<AttributeDto>?) =
+        attributesDto?.map(::convertProductAttribute)
+
+    private fun convertProductAttribute(attributeDto: AttributeDto) =
+        ProductAttribute(
+            attributeDto.id,
+            attributeDto.name,
+            attributeDto.value_name
         )
 }

@@ -19,5 +19,6 @@ data class ProductDto (
     val tags: List<String>?,
     val pictures : List<ProductPictureDto>? = null,
     val warranty: String? = null,
-    val shipping: ShippingDto? = null
+    val shipping: ShippingDto? = null,
+    val attributes: List<AttributeDto>? = null
 )
