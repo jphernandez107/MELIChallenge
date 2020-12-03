@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jphernandez.melichallenge.*
+import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.application.MeliChallengeApplication
 import com.jphernandez.melichallenge.data.Product
 import com.jphernandez.melichallenge.productDetail.ProductDetailFragment
@@ -23,6 +23,7 @@ class ProductListFragment : Fragment() {
 
     @Inject
     lateinit var productsRepository: ProductsRepository
+
     private val viewModel: ProductListVM by lazy { getViewModel {
         ProductListVM(
             productsRepository

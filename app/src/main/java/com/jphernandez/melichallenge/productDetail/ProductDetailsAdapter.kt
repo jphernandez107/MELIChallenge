@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jphernandez.melichallenge.data.ProductAttribute
 import com.jphernandez.melichallenge.R
+import com.jphernandez.melichallenge.data.ProductAttribute
 
 class ProductDetailsAdapter (): ListAdapter<ProductAttribute, ProductDetailsAdapter.ViewHolder>(DetailDiffCallback){
 

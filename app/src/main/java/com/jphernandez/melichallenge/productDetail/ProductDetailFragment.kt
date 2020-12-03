@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.application.MeliChallengeApplication
 import com.jphernandez.melichallenge.data.Product
-import com.jphernandez.melichallenge.R
 import com.jphernandez.melichallenge.helpers.displayThumbnail
 import com.jphernandez.melichallenge.productList.getViewModel
 import com.jphernandez.melichallenge.repositories.ProductsRepository
